@@ -1,9 +1,9 @@
 import base64
 import argparse
 import re
-from ciphers import bacon
+from ciphers import bacon, morse
 
-ciphers_list = {'bacon': bacon}
+ciphers_list = {'bacon': bacon, 'morse':morse}
 
 class C1pherH4x:
     def __init__(self, plaintext=None, ciphertext=None, flag_format=None, cipher=None):
@@ -41,9 +41,12 @@ class C1pherH4x:
             self.detect_ciphers()
 
     def detect_ciphers(self):
-        if re.match('[A|a]*[B|b]*' , self.ciphertext):
+        if re.match('[A|a]+[B|b]+' , self.ciphertext):
             print("Seems like Bacon Cipher")
             self.plaintext = bacon.decode(self.ciphertext)
+        elif re.match('[\.\-\s]+' , self.ciphertext):
+            print("Seems like Morse Code")
+            self.plaintext = morse.decode(self.ciphertext)
         if self.plaintext:
             print("Found Plaintext: ")
             print(self.plaintext)

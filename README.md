@@ -9,3 +9,9 @@ A cipher detection and breaking framework
 * Apply various attacks manually or automatic
 
 * Detects flag if given a regex format ex. `flag{.*}` which is useful in bruteforcing attacks
+
+## Available Ciphers
+
+* bacon
+
+* morse
