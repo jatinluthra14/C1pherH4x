@@ -10,7 +10,7 @@ table2 = {'A':'AAAAA', 'B':'AAAAB', 'C':'AAABA', 'D':'AAABB', 'E':'AABAA', 'F':'
 dec_table = {v: k for k, v in table.items()} 
 dec_table2 = {v: k for k, v in table2.items()} 
 
-def encode(plaintext, key=None):
+def encode(plaintext, **kwargs):
     plaintext = plaintext.upper()
     ciphertext = ['By 24 letter Bacon: ']
     ciphertext2 = ['By 26 letter Bacon: ']
@@ -21,7 +21,7 @@ def encode(plaintext, key=None):
     return "\n".join(ciphertexts)
 
 
-def decode(ciphertext, key=None):
+def decode(ciphertext, **kwargs):
     ciphertext = ciphertext.upper()
     length = len(ciphertext)
     curr = 0

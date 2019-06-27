@@ -1,8 +1,8 @@
 from base64 import b64encode, b64decode
 from Crypto.Util.number import long_to_bytes, bytes_to_long
-from utils import *
+from utils import format_result, isint
 
-def encode(s, key=None):
+def encode(s, **kwargs):
     if s.startswith('0x'):
         s = int(s[2:],16)
     if isint(s):
@@ -11,7 +11,7 @@ def encode(s, key=None):
         s = s.encode()
     return str(b64encode(s))
 
-def decode(s, key=None):
+def decode(s, **kwargs):
     bs = b64decode(s)
     long_bs = bytes_to_long(bs)
     return format_result(long_bs, hex(long_bs), str(bs))

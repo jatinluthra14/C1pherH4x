@@ -4,55 +4,57 @@ import re
 from ciphers import bacon, base64, morse, xor
 import textwrap
 import pyperclip
+from utils import print_not_silent
 
 ciphers_list = {'bacon': bacon, 'base64': base64, 'morse':morse, 'xor':xor}
 
 class C1pherH4x:
-    def __init__(self, plaintext=None, ciphertext=None, flag_format=None, cipher=None, key=None):
+    def __init__(self, plaintext=None, ciphertext=None, flag_format=None, cipher=None, key=None, silent=False):
         self.plaintext = plaintext
         self.ciphertext = ciphertext
         self.flag_format = flag_format
         self.cipher = cipher
         self.key = key
         self.flag = None
+        self.silent = silent
 
     def encode(self):
         if self.cipher:
             if self.cipher in ciphers_list:
-                self.ciphertext = ciphers_list[self.cipher].encode(self.plaintext, self.key)
+                self.ciphertext = ciphers_list[self.cipher].encode(self.plaintext, key=self.key, silent=self.silent)
                 if self.ciphertext:
-                    print("Ciphertext:")
+                    print_not_silent("Ciphertext:", self.silent)
                     print(self.ciphertext)
             else:
-                print(f"Cipher {self.cipher} does not exist!")
+                print_not_silent(f"Cipher {self.cipher} does not exist!", self.silent)
                 exit(0)
         else:
-            print("No Cipher provided to encode")
+            print_not_silent("No Cipher provided to encode", self.silent)
             exit(0)
             
     def decode(self):
         if self.cipher:
             if self.cipher in ciphers_list:
-                self.plaintext = ciphers_list[self.cipher].decode(self.ciphertext, self.key)
+                self.plaintext = ciphers_list[self.cipher].decode(self.ciphertext, key=self.key, silent=self.silent)
                 if self.plaintext:
                     self.print_plaintext()
             else:
-                print(f"Cipher {self.cipher} does not exist!")
+                print_not_silent(f"Cipher {self.cipher} does not exist!", self.silent)
                 exit(0)
         else:
-            print("Detecting Cipher")
+            print_not_silent("Detecting Cipher", self.silent)
             self.detect_ciphers()
 
     def detect_ciphers(self):
         if re.match('[A|a]+[B|b]+' , self.ciphertext):
-            print("Seems like Bacon Cipher")
-            self.plaintext = bacon.decode(self.ciphertext)
+            print_not_silent("Seems like Bacon Cipher", self.silent)
+            self.plaintext = bacon.decode(self.ciphertext, silent=self.silent)
         elif re.match('[\.\-\s]+' , self.ciphertext):
-            print("Seems like Morse Code")
-            self.plaintext = morse.decode(self.ciphertext)
+            print_not_silent("Seems like Morse Code", self.silent)
+            self.plaintext = morse.decode(self.ciphertext, silent=self.silent)
         elif re.match('^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$', self.ciphertext): # Thanks to https://stackoverflow.com/questions/475074/regex-to-parse-or-validate-base64-data
-            print("Seems like Base64")
-            self.plaintext = base64.decode(self.ciphertext)
+            print_not_silent("Seems like Base64", self.silent)
+            self.plaintext = base64.decode(self.ciphertext, silent=self.silent)
         if self.plaintext:
             print(self.plaintext)
     
@@ -60,19 +62,24 @@ class C1pherH4x:
         if self.flag_format:
             try:
                 self.flag = re.search(f"({self.flag_format})", self.plaintext).group(1)
-                print(f"Found a flag in plaintext:\n------------------\n{self.flag}\n------------------")
-                opt = input('Do you still want to see plaintext(s)? (y/N): ')
-                if opt:
-                    if opt.lower()[0] == 'y':
-                        print("Okay, Printing Plaintext(s)")
-                        print(self.plaintext)
-                        exit(0)
-                print("Copying the flag to clipboard!")
-                pyperclip.copy(self.flag)
-                exit(0)
+                print_not_silent(f"Found a flag in plaintext:\n------------------", self.silent)
+                print(self.flag)
+                print_not_silent("------------------", self.silent)
+                if not self.silent:                    
+                    opt = input('Do you still want to see plaintext(s)? (y/N): ')
+                    if opt:
+                        if opt.lower()[0] == 'y':
+                            print_not_silent("Okay, Printing Plaintext(s)", self.silent)
+                            print(self.plaintext)
+                            exit(0)
+                    print_not_silent("Copying the flag to clipboard!", self.silent)
+                    pyperclip.copy(self.flag)
+                    exit(0)
+                else:
+                    exit(0)
             except Exception as e:
-                print(e)
-        print("Found Plaintext(s): ")
+                print_not_silent(e, silent=self.silent)
+        print_not_silent("Found Plaintext(s): ", self.silent)
         print(self.plaintext)
         
 
@@ -98,6 +105,7 @@ if __name__ == "__main__":
     parser.add_argument('-d', '--decode', help='Use to decode ciphertext with given cipher or detect cipher', action='store_true')
     parser.add_argument('-k', '--key', help='Use to provide second provision for ciphers like vigenere or xor')
     parser.add_argument('-kf', '--keyfile', help='Use to import key from file')
+    parser.add_argument('--silent', '-s', help='Silent mode, Prints only final output', action='store_true')
     args = parser.parse_args()
 
     key = None
@@ -113,7 +121,7 @@ if __name__ == "__main__":
         else:
             print('Please mention plaintext/plainfile')
             exit(0)
-        plain = C1pherH4x(plaintext=plaintext, cipher=args.cipher, key=key)
+        plain = C1pherH4x(plaintext=plaintext, cipher=args.cipher, key=key, silent=args.silent)
         plain.encode()
     elif args.decode:
         if args.cipherfile:
@@ -123,7 +131,7 @@ if __name__ == "__main__":
         else:
             print('Please mention ciphertext/cipherfile')
             exit(0)
-        cipher = C1pherH4x(ciphertext=ciphertext, flag_format=args.flag_format, cipher=args.cipher, key=key)
+        cipher = C1pherH4x(ciphertext=ciphertext, flag_format=args.flag_format, cipher=args.cipher, key=key, silent=args.silent)
         cipher.decode()
     else:
         print('Encode/Decode not mentioned')

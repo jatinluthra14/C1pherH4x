@@ -13,3 +13,7 @@ def extend_string(s, length):
 
 def format_result(a, b, c):
     return f"-----------\nDEC : {a}\nHEX : {b}\nASCII : {c}\n-----------"
+
+def print_not_silent(s, silent):
+        if not silent:
+            print(s)
