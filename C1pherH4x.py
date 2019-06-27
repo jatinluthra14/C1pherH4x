@@ -1,9 +1,10 @@
 import base64
 import argparse
 import re
-from ciphers import bacon, morse
+from ciphers import bacon, morse, xor
+import textwrap
 
-ciphers_list = {'bacon': bacon, 'morse':morse}
+ciphers_list = {'bacon': bacon, 'morse':morse, 'xor':xor}
 
 class C1pherH4x:
     def __init__(self, plaintext=None, ciphertext=None, flag_format=None, cipher=None):
@@ -53,7 +54,16 @@ class C1pherH4x:
     
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(prog='C1pherH4x',
+      formatter_class=argparse.RawDescriptionHelpFormatter,
+      epilog=textwrap.dedent('''\
+         Ciphers:
+             bacon
+             morse : In . and _ format
+             xor : A space separated string of numbers,hex or strings if want to encode, eg. -e -c 'xor' -pt '111 222'
+
+          Be Sure to report any issues or ideas for this on Github   
+         '''))
     parser.add_argument('-ct', '--ciphertext', help='The ciphertext to decode')
     parser.add_argument('-cf', '--cipherfile', help='The file which contains the ciphertext to decode')
     parser.add_argument('-pt', '--plaintext', help='The plaintext to encode')

@@ -1,2 +1,3 @@
 __all__ = ['bacon',
-            'morse']
+            'morse',
+            'xor']
