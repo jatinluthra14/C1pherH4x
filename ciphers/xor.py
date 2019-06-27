@@ -39,7 +39,7 @@ def encode(s):
         result = xor_int(a, b)
     else:
         result = xor_strings(a, b)
-    f"-----------\nDEC : f{result}\nHEX : f{hex(result)}\nASCII : f{long_to_bytes(result)}"
+    return f"-----------\nDEC : {result}\nHEX : {hex(result)}\nASCII : {long_to_bytes(result)}\n-----------"
 
 def decode(s):
     print("Bruteforcing single byte xor")

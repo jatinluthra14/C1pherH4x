@@ -1,11 +1,11 @@
 import base64
 import argparse
 import re
-from ciphers import bacon, morse, xor
+from ciphers import bacon, base64, morse, xor
 import textwrap
 import pyperclip
 
-ciphers_list = {'bacon': bacon, 'morse':morse, 'xor':xor}
+ciphers_list = {'bacon': bacon, 'base64': base64, 'morse':morse, 'xor':xor}
 
 class C1pherH4x:
     def __init__(self, plaintext=None, ciphertext=None, flag_format=None, cipher=None):
@@ -78,6 +78,7 @@ if __name__ == "__main__":
       epilog=textwrap.dedent('''\
          Ciphers:
              bacon
+             base64
              morse : In . and _ format
              xor : A space separated string of numbers,hex or strings if want to encode, eg. -e -c 'xor' -pt '111 222'
 
