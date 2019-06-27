@@ -50,8 +50,11 @@ class C1pherH4x:
         elif re.match('[\.\-\s]+' , self.ciphertext):
             print("Seems like Morse Code")
             self.plaintext = morse.decode(self.ciphertext)
+        elif re.match('^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$', self.ciphertext): # Thanks to https://stackoverflow.com/questions/475074/regex-to-parse-or-validate-base64-data
+            print("Seems like Base64")
+            self.plaintext = base64.decode(self.ciphertext)
         if self.plaintext:
-            print(plaintext)
+            print(self.plaintext)
     
     def print_plaintext(self):
         if self.flag_format:
