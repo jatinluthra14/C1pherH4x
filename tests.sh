@@ -12,4 +12,7 @@
 # xor_decode
 (if [[ $(python C1pherH4x.py -s -d -ct "q{vpln'bH_varHuebcrqxetrHOXEj" -c xor -ff 'flag{.*}' | grep -Pzc '(?s)^flag{y0u_Have_bruteforce_XOR}\n$') -eq 1 ]]; then echo -e "\e[32m\e[1mXor Decode Working Successfully!"; else echo -e "\e[31m\e[1mXor Decode not Working :("; fi) &
 
+# vigenere_decode
+(if [[ $(python C1pherH4x.py -s -d -ct "gwox{RgqssihYspOntqpxs}" -c vigenere -k "blorpy" -ff 'flag{.*}' | grep -Pzc '(?s)^flag{CiphersAreAwesome}\n$') -eq 1 ]]; then echo -e "\e[32m\e[1mVigenere Decode Working Successfully!"; else echo -e "\e[31m\e[1mVigenere Decode not Working :("; fi) &
+
 sleep 0.1

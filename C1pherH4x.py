@@ -1,12 +1,12 @@
 import base64
 import argparse
 import re
-from ciphers import bacon, base64, morse, xor
+from ciphers import bacon, base64, morse, xor, vigenere
 import textwrap
 import pyperclip
 from utils import print_not_silent
 
-ciphers_list = {'bacon': bacon, 'base64': base64, 'morse':morse, 'xor':xor}
+ciphers_list = {'bacon': bacon, 'base64': base64, 'morse':morse, 'vigenere':vigenere ,'xor':xor}
 
 class C1pherH4x:
     def __init__(self, plaintext=None, ciphertext=None, flag_format=None, cipher=None, key=None, silent=False):
