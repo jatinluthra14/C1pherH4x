@@ -9,7 +9,7 @@ def encode(s, **kwargs):
         s = long_to_bytes(s)
     else:
         s = s.encode()
-    return str(b64encode(s))
+    return b64encode(s).decode()
 
 def decode(s, **kwargs):
     bs = b64decode(s)

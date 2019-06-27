@@ -22,6 +22,7 @@ def encode(s, **kwargs):
         return None
     if s.startswith('0x'):
         s = int(s[2:],16)
+    key = kwargs['key']
     if key.startswith('0x'):
         key = int(key[2:],16)
     if isint(s) and isint(key):
