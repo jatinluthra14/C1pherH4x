@@ -25,23 +25,21 @@ def xor_strings(a, b):
 def xor_int(a, b):
     return int(a) ^ int(b)
 
-def encode(s):
-    st = s.split()
-    if len(st) != 2:
-        print(f"Error found {len(st)} string(s), expected 2")
-    a, b = st
-    print(a,b)
-    if a.startswith('0x'):
-        a = int(a[2:],16)
-    if b.startswith('0x'):
-        b = int(b[2:],16)
-    if isint(a) and isint(b):
-        result = xor_int(a, b)
+def encode(s, key=None):
+    if not key:
+        print("Key not provided")
+        return None
+    if s.startswith('0x'):
+        s = int(s[2:],16)
+    if key.startswith('0x'):
+        key = int(key[2:],16)
+    if isint(s) and isint(key):
+        result = xor_int(s, key)
     else:
-        result = xor_strings(a, b)
+        result = xor_strings(s, key)
     return f"-----------\nDEC : {result}\nHEX : {hex(result)}\nASCII : {long_to_bytes(result)}\n-----------"
 
-def decode(s):
+def decode(s, key=None):
     print("Bruteforcing single byte xor")
     plaintexts = []
     for char in range(256):

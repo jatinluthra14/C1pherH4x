@@ -11,16 +11,17 @@ table = { 'A':'.-', 'B':'-...', 'C':'-.-.', 'D':'-..', 'E':'.',
 
 dec_table = {v: k for k, v in table.items()} 
 
-def decode(ciphertext):
-    ciphertext = ciphertext.upper()
-    plaintext = []
-    for char in ciphertext.split():
-        plaintext.append(dec_table[char])
-    return "".join(plaintext)
-
-def encode(plaintext):
+def encode(plaintext, key=None):
     plaintext = plaintext.upper()
     ciphertext = []
     for char in plaintext:
         ciphertext.append(table[char])
     return " ".join(ciphertext)
+
+    
+def decode(ciphertext, key=None):
+    ciphertext = ciphertext.upper()
+    plaintext = []
+    for char in ciphertext.split():
+        plaintext.append(dec_table[char])
+    return "".join(plaintext)

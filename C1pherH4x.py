@@ -8,17 +8,18 @@ import pyperclip
 ciphers_list = {'bacon': bacon, 'base64': base64, 'morse':morse, 'xor':xor}
 
 class C1pherH4x:
-    def __init__(self, plaintext=None, ciphertext=None, flag_format=None, cipher=None):
+    def __init__(self, plaintext=None, ciphertext=None, flag_format=None, cipher=None, key=None):
         self.plaintext = plaintext
         self.ciphertext = ciphertext
         self.flag_format = flag_format
         self.cipher = cipher
+        self.key = key
         self.flag = None
 
     def encode(self):
         if self.cipher:
             if self.cipher in ciphers_list:
-                self.ciphertext = ciphers_list[self.cipher].encode(self.plaintext)
+                self.ciphertext = ciphers_list[self.cipher].encode(self.plaintext, self.key)
                 if self.ciphertext:
                     print("Ciphertext:")
                     print(self.ciphertext)
@@ -32,7 +33,7 @@ class C1pherH4x:
     def decode(self):
         if self.cipher:
             if self.cipher in ciphers_list:
-                self.plaintext = ciphers_list[self.cipher].decode(self.ciphertext)
+                self.plaintext = ciphers_list[self.cipher].decode(self.ciphertext, self.key)
                 if self.plaintext:
                     self.print_plaintext()
             else:
@@ -92,8 +93,15 @@ if __name__ == "__main__":
     parser.add_argument('-c', '--cipher', help='Ciphers to implement, Available: base64, brutexor, morse')
     parser.add_argument('-e', '--encode', help='Use to encode plaintext with given cipher', action='store_true')
     parser.add_argument('-d', '--decode', help='Use to decode ciphertext with given cipher or detect cipher', action='store_true')
+    parser.add_argument('-k', '--key', help='Use to provide second provision for ciphers like vigenere or xor')
+    parser.add_argument('-kf', '--keyfile', help='Use to import key from file')
     args = parser.parse_args()
 
+    key = None
+    if args.keyfile:
+        key = open(args.keyfile, 'r').read()
+    if args.key:
+        key = args.key
     if args.encode:
         if args.plainfile:
             plaintext = open(args.plainfile, 'r').read()
@@ -102,7 +110,7 @@ if __name__ == "__main__":
         else:
             print('Please mention plaintext/plainfile')
             exit(0)
-        plain = C1pherH4x(plaintext=plaintext, cipher=args.cipher)
+        plain = C1pherH4x(plaintext=plaintext, cipher=args.cipher, key=key)
         plain.encode()
     elif args.decode:
         if args.cipherfile:
@@ -112,7 +120,7 @@ if __name__ == "__main__":
         else:
             print('Please mention ciphertext/cipherfile')
             exit(0)
-        cipher = C1pherH4x(ciphertext=ciphertext, flag_format=args.flag_format, cipher=args.cipher)
+        cipher = C1pherH4x(ciphertext=ciphertext, flag_format=args.flag_format, cipher=args.cipher, key=key)
         cipher.decode()
     else:
         print('Encode/Decode not mentioned')

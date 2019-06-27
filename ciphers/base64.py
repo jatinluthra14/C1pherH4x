@@ -8,7 +8,7 @@ def isint(s):
     except ValueError:
         return False
 
-def encode(s):
+def encode(s, key=None):
     if s.startswith('0x'):
         s = int(s[2:],16)
     if isint(s):
@@ -17,7 +17,7 @@ def encode(s):
         s = s.encode()
     return str(b64encode(s))
 
-def decode(s):
+def decode(s, key=None):
     bs = b64decode(s)
     long_bs = bytes_to_long(bs)
     return f"-----------\nDEC : {long_bs}\nHEX : {hex(long_bs)}\nASCII : {str(bs)}\n-----------"
