@@ -56,7 +56,7 @@ class C1pherH4x:
             print_not_silent("Seems like Base64", self.silent)
             self.plaintext = base64.decode(self.ciphertext, silent=self.silent)
         if self.plaintext:
-            print(self.plaintext)
+            self.print_plaintext()
     
     def print_plaintext(self):
         if self.flag_format:
