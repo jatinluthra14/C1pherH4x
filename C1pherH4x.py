@@ -3,6 +3,7 @@ import argparse
 import re
 from ciphers import bacon, morse, xor
 import textwrap
+import pyperclip
 
 ciphers_list = {'bacon': bacon, 'morse':morse, 'xor':xor}
 
@@ -12,6 +13,7 @@ class C1pherH4x:
         self.ciphertext = ciphertext
         self.flag_format = flag_format
         self.cipher = cipher
+        self.flag = None
 
     def encode(self):
         if self.cipher:
@@ -32,8 +34,7 @@ class C1pherH4x:
             if self.cipher in ciphers_list:
                 self.plaintext = ciphers_list[self.cipher].decode(self.ciphertext)
                 if self.plaintext:
-                    print("Found Plaintext: ")
-                    print(self.plaintext)
+                    self.print_plaintext()
             else:
                 print(f"Cipher {self.cipher} does not exist!")
                 exit(0)
@@ -49,9 +50,27 @@ class C1pherH4x:
             print("Seems like Morse Code")
             self.plaintext = morse.decode(self.ciphertext)
         if self.plaintext:
-            print("Found Plaintext: ")
-            print(self.plaintext)
+            print(plaintext)
     
+    def print_plaintext(self):
+        if self.flag_format:
+            try:
+                self.flag = re.search(f"({self.flag_format})", self.plaintext).group(1)
+                print(f"Found a flag in plaintext:\n------------------\n{self.flag}\n------------------")
+                opt = input('Do you still want to see plaintext(s)? (y/N): ')
+                if opt:
+                    if opt.lower()[0] == 'y':
+                        print("Okay, Printing Plaintext(s)")
+                        print(self.plaintext)
+                        exit(0)
+                print("Copying the flag to clipboard!")
+                pyperclip.copy(self.flag)
+                exit(0)
+            except Exception as e:
+                print(e)
+        print("Found Plaintext(s): ")
+        print(self.plaintext)
+        
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog='C1pherH4x',
