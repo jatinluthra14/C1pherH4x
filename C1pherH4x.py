@@ -90,8 +90,9 @@ if __name__ == "__main__":
          Ciphers:
              bacon
              base64
-             morse : In . and _ format
-             xor : A space separated string of numbers,hex or strings if want to encode, eg. -e -c 'xor' -pt '111 222'
+             morse :    In . and _ format
+             vigenere:  Specify
+             xor :      Specify second item as key
 
           Be Sure to report any issues or ideas for this on Github   
          '''))

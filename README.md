@@ -14,4 +14,10 @@ A cipher detection and breaking framework
 
 * bacon
 
+* base64
+
 * morse
+
+* vigenere
+
+* xor
