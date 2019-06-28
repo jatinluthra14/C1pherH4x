@@ -6,6 +6,7 @@ from itertools import cycle
 table = string.ascii_lowercase
 table_upper = string.ascii_uppercase
 
+
 def encode(s, **kwargs):
     if not kwargs['key']:
         print("Key not provided")
@@ -19,12 +20,15 @@ def encode(s, **kwargs):
             ciphertext.append(s[i])
         else:
             if s[i].islower():
-                index = table.index(s[i]) + table.index(next(cycle_key).lower())
+                index = table.index(
+                    s[i]) + table.index(next(cycle_key).lower())
                 ciphertext.append(table[index % 26])
             else:
-                index = table_upper.index(s[i]) + table_upper.index(next(cycle_key).upper())
+                index = table_upper.index(
+                    s[i]) + table_upper.index(next(cycle_key).upper())
                 ciphertext.append(table_upper[index % 26])
     return "".join(ciphertext)
+
 
 def decode(s, **kwargs):
     plaintext = []
@@ -36,9 +40,11 @@ def decode(s, **kwargs):
             plaintext.append(s[i])
         else:
             if s[i].islower():
-                index = table.index(s[i]) - table.index(next(cycle_key).lower())
+                index = table.index(
+                    s[i]) - table.index(next(cycle_key).lower())
                 plaintext.append(table[index % 26])
             else:
-                index = table_upper.index(s[i]) - table_upper.index(next(cycle_key).upper())
+                index = table_upper.index(
+                    s[i]) - table_upper.index(next(cycle_key).upper())
                 plaintext.append(table_upper[index % 26])
     return "".join(plaintext)

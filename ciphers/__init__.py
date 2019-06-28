@@ -1,5 +1,6 @@
 __all__ = ['bacon',
-            'base64',
-            'morse',
-            'vigenere',
-            'xor']
+           'base64',
+           'binary',
+           'morse',
+           'vigenere',
+           'xor']

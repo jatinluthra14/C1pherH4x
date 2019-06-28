@@ -12,6 +12,12 @@
 # base64_decode
 (if [[ $(python C1pherH4x.py -d -s -ct "Q1RGe0ZsYWdneVdhZ2d5UmFnZ3l9" -ff "CTF{.*}" | grep -Pzc '(?s)^CTF{FlaggyWaggyRaggy}\n$') -eq 1 ]]; then echo -e "\e[32m\e[1mBase64 Decode Working Successfully!"; else echo -e "\e[31m\e[1mBase64 Decode not Working :("; fi) &
 
+# binary_encode
+(if [[ $(python C1pherH4x.py -s -e -pt "CTF{Bit_Flippin}" -c binary | grep -Pzc '(?s)^1000011010101000100011001111011010000100110100101110100010111110100011001101100011010010111000001110000011010010110111001111101\n$') -eq 1 ]]; then echo -e "\e[32m\e[1mBinary Encode Working Successfully!"; else echo -e "\e[31m\e[1mBinary Encode not Working :("; fi) &
+
+# binary_decode
+(if [[ $(python C1pherH4x.py -s -d -ct "01000011010101000100011001111011010000100110100101110100010111110100011001101100011010010111000001110000011010010110111001111101" -ff "CTF{.*}" | grep -Pzc '(?s)^CTF{Bit_Flippin}\n$') -eq 1 ]]; then echo -e "\e[32m\e[1mBinary Decode Working Successfully!"; else echo -e "\e[31m\e[1mBinary Decode not Working :("; fi) &
+
 # morse_encode
 (if [[ $(python C1pherH4x.py -c morse -e -s -pt 'FLAGSAMUELMORSEISCOOLBYTHEWAYILIKECHEES' | grep -c '..-. .-.. .- --. ... .- -- ..- . .-.. -- --- .-. ... . .. ... -.-. --- --- .-.. -... -.-- - .... . .-- .- -.-- .. .-.. .. -.- . -.-. .... . . ...') -eq 1 ]]; then echo -e "\e[32m\e[1mMorse Encode Working Successfully!"; else echo -e "\e[31m\e[1mMorse Encode not Working :("; fi) &
 

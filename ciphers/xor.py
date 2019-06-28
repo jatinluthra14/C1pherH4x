@@ -1,6 +1,7 @@
 from Crypto.Util.number import bytes_to_long, long_to_bytes
 from utils import extend_string, isint, format_result
 
+
 def xor_strings(a, b):
     len_a = len(a)
     len_b = len(b)
@@ -13,23 +14,26 @@ def xor_strings(a, b):
     result = long_a ^ long_b
     return result
 
+
 def xor_int(a, b):
     return int(a) ^ int(b)
+
 
 def encode(s, **kwargs):
     if not kwargs['key']:
         print("Key not provided")
         return None
     if s.startswith('0x'):
-        s = int(s[2:],16)
+        s = int(s[2:], 16)
     key = kwargs['key']
     if key.startswith('0x'):
-        key = int(key[2:],16)
+        key = int(key[2:], 16)
     if isint(s) and isint(key):
         result = xor_int(s, key)
     else:
         result = xor_strings(s, key)
     return format_result(result, hex(result), str(long_to_bytes(result)))
+
 
 def decode(s, **kwargs):
     if not kwargs['silent']:
