@@ -1,12 +1,12 @@
 import argparse
 import re
-from ciphers import bacon, base64, binary, morse, vigenere, xor
+from ciphers import bacon, base64, binary, morse, polybius, vigenere, xor
 import textwrap
 import pyperclip
 from utils import print_not_silent
 
 ciphers_list = {'bacon': bacon, 'base64': base64, 'binary': binary,
-                'morse': morse, 'vigenere': vigenere, 'xor': xor}
+                'morse': morse, 'polybius': polybius, 'vigenere': vigenere, 'xor': xor}
 
 
 class C1pherH4x:
@@ -102,9 +102,11 @@ if __name__ == "__main__":
          Ciphers:
              bacon
              base64
+             binary
              morse :    In . and _ format
-             vigenere:  Specify
-             xor :      Specify second item as key
+             polybius:  Specify delimiter in the key argument
+             vigenere:  Specify key in the key agument
+             xor :      Specify second item in key argument
 
           Be Sure to report any issues or ideas for this on Github   
          '''))

@@ -24,6 +24,12 @@
 # morse_decode
 (if [[ $(python C1pherH4x.py -s -d -ct '..-. .-.. .- --. ... .- -- ..- . .-.. -- --- .-. ... . .. ... -.-. --- --- .-.. -... -.-- - .... . .-- .- -.-- .. .-.. .. -.- . -.-. .... . . ...' | grep -Pzc '(?s)^FLAGSAMUELMORSEISCOOLBYTHEWAYILIKECHEES\n$') -eq 1 ]]; then echo -e "\e[32m\e[1mMorse Decode Working Successfully!"; else echo -e "\e[31m\e[1mMorse Decode not Working :("; fi) &
 
+# polybius_encode
+(if [[ $(python C1pherH4x.py -e -pt 'CTF{THUMBS_UP}' -c polybius -k ',' | grep -c '1-3,4-4,2-1,{,4-4,2-3,4-5,3-2,1-2,4-3,_,4-5,3-5,}') -eq 1 ]]; then echo -e "\e[32m\e[1mPolybius Encode Working Successfully!"; else echo -e "\e[31m\e[1mPolybius Encode not Working :("; fi) &
+
+# polybius_decode
+(if [[ $(python C1pherH4x.py -s -d -ct "1-3,4-4,2-1,{,4-4,2-3,4-5,3-2,1-2,4-3,_,4-5,3-5,}" -k "," -c polybius -ff "CTF{.*}" | grep -Pzc '(?s)^CTF{THUMBS_UP}\n$') -eq 1 ]]; then echo -e "\e[32m\e[1mPolybius Decode Working Successfully!"; else echo -e "\e[31m\e[1mPolybius Decode not Working :("; fi) &
+
 # xor_encode
 (if [[ $(python C1pherH4x.py -e -pt '0xc4115' -c xor -k '0x4cf8' | grep -c '0xc0ded') -eq 1 ]]; then echo -e "\e[32m\e[1mXor Encode Working Successfully!"; else echo -e "\e[31m\e[1mXor Encode not Working :("; fi) &
 
@@ -36,4 +42,4 @@
 # vigenere_decode
 (if [[ $(python C1pherH4x.py -s -d -ct "gwox{RgqssihYspOntqpxs}" -c vigenere -k "blorpy" -ff 'flag{.*}' | grep -Pzc '(?s)^flag{CiphersAreAwesome}\n$') -eq 1 ]]; then echo -e "\e[32m\e[1mVigenere Decode Working Successfully!"; else echo -e "\e[31m\e[1mVigenere Decode not Working :("; fi) &
 
-sleep 0.1
+sleep 0.3
