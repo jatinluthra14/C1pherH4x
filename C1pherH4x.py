@@ -87,10 +87,8 @@ class C1pherH4x:
                             exit(0)
                     print_not_silent(
                         "Copying the flag to clipboard!", self.silent)
-                    pyperclip.copy(self.flag)
-                    exit(0)
-                else:
-                    exit(0)
+                pyperclip.copy(self.flag)
+                exit(0)
             except Exception as e:
                 print_not_silent(e, silent=self.silent)
         print_not_silent("Found Plaintext(s): ", self.silent)
