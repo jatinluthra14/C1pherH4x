@@ -1,7 +1,4 @@
-from Crypto.Util.number import bytes_to_long, long_to_bytes
-from utils import extend_string, isint, format_result
 import string
-from itertools import cycle
 
 table = string.ascii_lowercase
 table_upper = string.ascii_uppercase
