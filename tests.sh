@@ -18,6 +18,12 @@
 # binary_decode
 (if [[ $(python C1pherH4x.py -s -d -ct "01000011010101000100011001111011010000100110100101110100010111110100011001101100011010010111000001110000011010010110111001111101" -ff "CTF{.*}" | grep -Pzc '(?s)^CTF{Bit_Flippin}\n$') -eq 1 ]]; then echo -e "\e[32m\e[1mBinary Decode Working Successfully!"; else echo -e "\e[31m\e[1mBinary Decode not Working :("; fi) &
 
+# caesar_encode
+(if [[ $(python C1pherH4x.py -e -pt 'yfn uzu pfl tirtb dp katkw{jvbivk_tfuv}' -c rot9 -s | grep -Pzc '(?s)^how did you crack my tjctf{sekret_code}\n$') -eq 1 ]]; then echo -e "\e[32m\e[1mCaesar Encode Working Successfully!"; else echo -e "\e[31m\e[1mCaesar Encode not Working :("; fi) &
+
+# caesar_decode
+(if [[ $(python C1pherH4x.py -d -ct 'yfn uzu pfl tirtb dp katkw{jvbivk_tfuv}' -c caesar -ff "tjctf{.*}" -s | grep -Pzc '(?s)^tjctf{sekret_code}\n$') -eq 1 ]]; then echo -e "\e[32m\e[1mCaesar Decode Working Successfully!"; else echo -e "\e[31m\e[1mCaesar Decode not Working :("; fi) &
+
 # morse_encode
 (if [[ $(python C1pherH4x.py -c morse -e -s -pt 'FLAGSAMUELMORSEISCOOLBYTHEWAYILIKECHEES' | grep -c '..-. .-.. .- --. ... .- -- ..- . .-.. -- --- .-. ... . .. ... -.-. --- --- .-.. -... -.-- - .... . .-- .- -.-- .. .-.. .. -.- . -.-. .... . . ...') -eq 1 ]]; then echo -e "\e[32m\e[1mMorse Encode Working Successfully!"; else echo -e "\e[31m\e[1mMorse Encode not Working :("; fi) &
 

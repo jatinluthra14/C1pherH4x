@@ -1,11 +1,11 @@
 import argparse
 import re
-from ciphers import bacon, base64, binary, morse, polybius, vigenere, xor
+from ciphers import bacon, base64, binary, caesar, morse, polybius, vigenere, xor
 import textwrap
 import pyperclip
 from utils import print_not_silent
 
-ciphers_list = {'bacon': bacon, 'base64': base64, 'binary': binary,
+ciphers_list = {'bacon': bacon, 'base64': base64, 'binary': binary, 'caesar': caesar,
                 'morse': morse, 'polybius': polybius, 'vigenere': vigenere, 'xor': xor}
 
 
@@ -21,12 +21,15 @@ class C1pherH4x:
 
     def encode(self):
         if self.cipher:
-            if self.cipher in ciphers_list:
+            if self.cipher.startswith('rot'):
+                self.ciphertext = caesar.encode(self.plaintext, shift=int(
+                    self.cipher.replace('rot', '')), silent=self.silent)
+            elif self.cipher in ciphers_list:
                 self.ciphertext = ciphers_list[self.cipher].encode(
                     self.plaintext, key=self.key, silent=self.silent)
-                if self.ciphertext:
-                    print_not_silent("Ciphertext:", self.silent)
-                    print(self.ciphertext)
+            if self.ciphertext:
+                print_not_silent("Ciphertext:", self.silent)
+                print(self.ciphertext)
             else:
                 print_not_silent(
                     f"Cipher {self.cipher} does not exist!", self.silent)
@@ -37,11 +40,14 @@ class C1pherH4x:
 
     def decode(self):
         if self.cipher:
-            if self.cipher in ciphers_list:
+            if self.cipher.startswith('rot'):
+                self.plaintext = caesar.encode(self.ciphertext, shift=int(
+                    self.cipher.replace('rot', '')), silent=self.silent)
+            elif self.cipher in ciphers_list:
                 self.plaintext = ciphers_list[self.cipher].decode(
                     self.ciphertext, key=self.key, silent=self.silent)
-                if self.plaintext:
-                    self.print_plaintext()
+            if self.plaintext:
+                self.print_plaintext()
             else:
                 print_not_silent(
                     f"Cipher {self.cipher} does not exist!", self.silent)
