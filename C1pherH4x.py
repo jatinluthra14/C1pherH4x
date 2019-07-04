@@ -97,6 +97,8 @@ class C1pherH4x:
                             print(self.plaintext)
                             exit(0)
                 if not self.no_copy and self.flag:
+                    exit(0)
+                if self.flag:
                     pyperclip.copy(self.flag)
                     print_not_silent(
                         "Copying the flag to clipboard!", self.silent)
