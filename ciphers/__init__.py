@@ -3,6 +3,7 @@ __all__ = ['bacon',
            'binary',
            'caesar',
            'morse',
+           'playfair',
            'polybius',
            'vigenere',
            'xor']

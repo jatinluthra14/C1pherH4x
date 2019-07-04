@@ -1,12 +1,12 @@
 import argparse
 import re
-from ciphers import bacon, base64, binary, caesar, morse, polybius, vigenere, xor
+from ciphers import bacon, base64, binary, caesar, morse, playfair, polybius, vigenere, xor
 import textwrap
 import pyperclip
 from utils import print_not_silent
 
 ciphers_list = {'bacon': bacon, 'base64': base64, 'binary': binary, 'caesar': caesar,
-                'morse': morse, 'polybius': polybius, 'vigenere': vigenere, 'xor': xor}
+                'morse': morse, 'playfair': playfair, 'polybius': polybius, 'vigenere': vigenere, 'xor': xor}
 
 
 class C1pherH4x:
@@ -113,6 +113,7 @@ if __name__ == "__main__":
              binary
              caesar   :  Specify custom charset in key or for specific shift, use rot convention eg. rot8 for 8 shift
              morse    :  In . and _ format
+             playfair :  Specify key in the key argument
              polybius :  Specify delimiter in the key argument
              vigenere :  Specify key in the key agument
              xor      :  Specify second item in key argument

@@ -30,6 +30,12 @@
 # morse_decode
 (if [[ $(python C1pherH4x.py -s -d -ct '..-. .-.. .- --. ... .- -- ..- . .-.. -- --- .-. ... . .. ... -.-. --- --- .-.. -... -.-- - .... . .-- .- -.-- .. .-.. .. -.- . -.-. .... . . ...' -nc | grep -Pzc '(?s)^FLAGSAMUELMORSEISCOOLBYTHEWAYILIKECHEES\n$') -eq 1 ]]; then echo -e "\e[32m\e[1mMorse Decode Working Successfully!"; else echo -e "\e[31m\e[1mMorse Decode not Working :("; fi) &
 
+# playfair_encode
+(if [[ $(python C1pherH4x.py -s -e -pt 'PRACTICALPLAYFAIRX' -c playfair -k 'UNPROBLEMATICDFGHKQSVWXYZ' | grep -Pzc '(?s)^ROEFICFEENEBZDLFPY\n$') -eq 1 ]]; then echo -e "\e[32m\e[1mPlayfair Encode Working Successfully!"; else echo -e "\e[31m\e[1mPlayfair Encode not Working :("; fi) &
+
+# playfair_decode
+(if [[ $(python C1pherH4x.py -s -d -ct "ROEFICFEENEBZDLFPY" -k "UNPROBLEMATICDFGHKQSVWXYZ" -c playfair | grep -Pzc '(?s)^PRACTICALPLAYFAIRX\n$') -eq 1 ]]; then echo -e "\e[32m\e[1mPlayfair Decode Working Successfully!"; else echo -e "\e[31m\e[1mPlayfair Decode not Working :("; fi) &
+
 # polybius_encode
 (if [[ $(python C1pherH4x.py -e -pt 'CTF{THUMBS_UP}' -c polybius -k ',' -nc | grep -c '1-3,4-4,2-1,{,4-4,2-3,4-5,3-2,1-2,4-3,_,4-5,3-5,}') -eq 1 ]]; then echo -e "\e[32m\e[1mPolybius Encode Working Successfully!"; else echo -e "\e[31m\e[1mPolybius Encode not Working :("; fi) &
 
