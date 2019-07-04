@@ -23,7 +23,7 @@ class C1pherH4x:
         if self.cipher:
             if self.cipher.startswith('rot'):
                 self.ciphertext = caesar.encode(self.plaintext, shift=int(
-                    self.cipher.replace('rot', '')), silent=self.silent)
+                    self.cipher.replace('rot', '')), key=self.key, silent=self.silent)
             elif self.cipher in ciphers_list:
                 self.ciphertext = ciphers_list[self.cipher].encode(
                     self.plaintext, key=self.key, silent=self.silent)
@@ -42,7 +42,7 @@ class C1pherH4x:
         if self.cipher:
             if self.cipher.startswith('rot'):
                 self.plaintext = caesar.encode(self.ciphertext, shift=int(
-                    self.cipher.replace('rot', '')), silent=self.silent)
+                    self.cipher.replace('rot', '')), key=self.key, silent=self.silent)
             elif self.cipher in ciphers_list:
                 self.plaintext = ciphers_list[self.cipher].decode(
                     self.ciphertext, key=self.key, silent=self.silent)
@@ -109,10 +109,11 @@ if __name__ == "__main__":
              bacon
              base64
              binary
-             morse :    In . and _ format
-             polybius:  Specify delimiter in the key argument
-             vigenere:  Specify key in the key agument
-             xor :      Specify second item in key argument
+             caesar   :  Specify custom charset in key or for specific shift, use rot convention eg. rot8 for 8 shift
+             morse    :  In . and _ format
+             polybius :  Specify delimiter in the key argument
+             vigenere :  Specify key in the key agument
+             xor      :  Specify second item in key argument
 
           Be Sure to report any issues or ideas for this on Github   
          '''))
