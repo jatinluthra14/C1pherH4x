@@ -77,13 +77,17 @@ class C1pherH4x:
     def print_plaintext(self):
         if self.flag_format:
             try:
-                self.flag = re.search(
-                    f"({self.flag_format})", self.plaintext).group(1)
-                print_not_silent(
-                    f"Found a flag in plaintext:\n------------------", self.silent)
-                print(self.flag)
-                print_not_silent("------------------", self.silent)
-                if not self.silent:
+                try:
+                    self.flag = re.search(
+                        f"({self.flag_format})", self.plaintext).group(1)
+                    print_not_silent(
+                        f"Found a flag in plaintext:\n------------------", self.silent)
+                    print(self.flag)
+                    print_not_silent("------------------", self.silent)
+                except AttributeError:
+                    print_not_silent(
+                        "No Flag found with specified format!", self.silent)
+                if not self.silent and self.flag:
                     opt = input(
                         'Do you still want to see plaintext(s)? (y/N): ')
                     if opt:
@@ -92,11 +96,11 @@ class C1pherH4x:
                                 "Okay, Printing Plaintext(s)", self.silent)
                             print(self.plaintext)
                             exit(0)
-                if not self.no_copy:
+                if not self.no_copy and self.flag:
                     pyperclip.copy(self.flag)
                     print_not_silent(
                         "Copying the flag to clipboard!", self.silent)
-                exit(0)
+                    exit(0)
             except Exception as e:
                 print_not_silent(e, silent=self.silent)
         print_not_silent("Found Plaintext(s): ", self.silent)
