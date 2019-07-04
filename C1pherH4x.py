@@ -10,7 +10,7 @@ ciphers_list = {'bacon': bacon, 'base64': base64, 'binary': binary, 'caesar': ca
 
 
 class C1pherH4x:
-    def __init__(self, plaintext=None, ciphertext=None, flag_format=None, cipher=None, key=None, silent=False):
+    def __init__(self, plaintext=None, ciphertext=None, flag_format=None, cipher=None, key=None, silent=False, no_copy=False):
         self.plaintext = plaintext
         self.ciphertext = ciphertext
         self.flag_format = flag_format
@@ -18,6 +18,7 @@ class C1pherH4x:
         self.key = key
         self.flag = None
         self.silent = silent
+        self.no_copy = no_copy
 
     def encode(self):
         if self.cipher:
@@ -91,9 +92,10 @@ class C1pherH4x:
                                 "Okay, Printing Plaintext(s)", self.silent)
                             print(self.plaintext)
                             exit(0)
+                if not self.no_copy:
+                    pyperclip.copy(self.flag)
                     print_not_silent(
                         "Copying the flag to clipboard!", self.silent)
-                pyperclip.copy(self.flag)
                 exit(0)
             except Exception as e:
                 print_not_silent(e, silent=self.silent)
@@ -136,6 +138,8 @@ if __name__ == "__main__":
     parser.add_argument('-kf', '--keyfile', help='Use to import key from file')
     parser.add_argument(
         '--silent', '-s', help='Silent mode, Prints only final output', action='store_true')
+    parser.add_argument(
+        '--no-copy', '-nc', help="Don't copy flag if found", action='store_true')
     args = parser.parse_args()
 
     key = None
@@ -163,7 +167,7 @@ if __name__ == "__main__":
             print('Please mention ciphertext/cipherfile')
             exit(0)
         cipher = C1pherH4x(ciphertext=ciphertext, flag_format=args.flag_format,
-                           cipher=args.cipher, key=key, silent=args.silent)
+                           cipher=args.cipher, key=key, silent=args.silent, no_copy=args.no_copy)
         cipher.decode()
     else:
         print('Encode/Decode not mentioned')
