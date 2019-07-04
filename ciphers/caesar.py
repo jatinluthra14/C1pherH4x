@@ -33,9 +33,12 @@ def encode(s, **kwargs):
     else:
         if not kwargs['silent']:
             print("No Shift provided!")
+    key = None
     if 'key' in kwargs:
-        return rot(s, shift, key=kwargs['key'])
-    return rot(s, shift)
+        key = kwargs['key']
+    if int(shift) == 47:
+        key = ''.join([chr(i) for i in range(33, 127)])
+    return rot(s, shift, key=key)
 
 
 def decode(s, **kwargs):
@@ -44,8 +47,14 @@ def decode(s, **kwargs):
         key = kwargs['key']
     if 'shift' in kwargs:
         shift = kwargs['shift']
+        if int(shift) == 47:
+            key = ''.join([chr(i) for i in range(33, 127)])
         return rot(s, shift, key=key)
     plaintexts = []
-    for i in range(26):
+    if not key:
+        len_key = 26
+    else:
+        len_key = len(key)
+    for i in range(len_key):
         plaintexts.append(f"ROT {i}: {rot(s,i, key=key)}")
     return "\n".join(plaintexts)
