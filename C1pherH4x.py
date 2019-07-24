@@ -96,7 +96,7 @@ class C1pherH4x:
                                 "Okay, Printing Plaintext(s)", self.silent)
                             print(self.plaintext)
                             exit(0)
-                if not self.no_copy and self.flag:
+                if self.no_copy and self.flag:
                     exit(0)
                 if self.flag:
                     pyperclip.copy(self.flag)
