@@ -23,15 +23,17 @@ def encode(plaintext, **kwargs):
 
 
 def decode(ciphertext, **kwargs):
+    if '0' in ciphertext or '1' in ciphertext:
+        ciphertext = ciphertext.replace('0', 'A').replace('1', 'B')
     ciphertext = ciphertext.upper()
     length = len(ciphertext)
     curr = 0
     plaintext = ['By 24 letter Bacon: ']
     plaintext2 = ['By 26 letter Bacon: ']
     while curr in range(length):
-        if ciphertext[curr] == " ":
-            plaintext.append(" ")
-            plaintext2.append(" ")
+        if ciphertext[curr] not in table.keys():
+            plaintext.append(ciphertext[curr])
+            plaintext2.append(ciphertext[curr])
             curr += 1
         else:
             char = ciphertext[curr:curr+5]
